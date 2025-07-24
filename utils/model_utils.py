@@ -18,7 +18,7 @@ def load_chat_model(model_path):
             "text-generation",
             model=model,
             tokenizer=tokenizer,
-            max_new_tokens=512,
+            max_new_tokens=1024,
             # temperature=0.3,
             return_full_text=False  # 只返回新生成的部分
         )
@@ -30,21 +30,21 @@ def load_chat_model(model_path):
 
     return chat_model, tokenizer
 
-def apply_chat_template(prompt, tokenizer):
-    return tokenizer.apply_chat_template(prompt, tokenize=False, add_generation_prompt=True)
+def apply_chat_template(prompt, tokenizer, enable_thinking=False):
+    return tokenizer.apply_chat_template(prompt, tokenize=False, add_generation_prompt=True, enable_thinking=enable_thinking)
 
 # 一个生成消息的示例函数
-def generate_messages(question, tokenizer):
+def generate_messages(question, tokenizer, enable_thinking=False):
     system_message = {"role": "system", "content": "你是一个乐于助人的中文助手。"}
     message = [system_message, {"role": "user", "content": question}]
-    return apply_chat_template(message, tokenizer)
+    return apply_chat_template(message, tokenizer, enable_thinking)
 
 if __name__ == "__main__":
     model_path = r"D:\AI_models\Qwen2.5-0.5B-Instruct"  # 替换为你的模型路径
     # 1. 加载模型
     chat_model, tokenizer = load_chat_model(model_path)
     # 2. 生成消息
-    question = "简单解释达朗贝尔算子。"
+    question = "简单介绍大语言模型。"
     messages = generate_messages(question, tokenizer)
     # 3. 调用模型生成回复
     response = chat_model.invoke(messages)
