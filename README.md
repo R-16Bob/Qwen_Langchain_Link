@@ -7,9 +7,13 @@ Qwen_Langchain_Link 项目致力于将本地部署的 Qwen 模型封装为 LangC
 Qwen_Langchain_Link/
 ├── app/
 |    └── chatRobot.py      # 实现记忆和多轮对话的web应用
+|    └── pdf_qa.py         # 实现基于PDF的智能问答的web应用
+├── images/
+|    └── chatRobot.png     # 项目截图
 ├── utils/
 │   └── model_utils.py      # 工具类文件，包含模型加载、消息生成等功能
 |   └──chatRobot_utils.py  # 聊天机器人工具类文件，包含获取模型回复等功能
+|   └──pdf_qa_utils.py     # PDF智能问答工具类文件，包括RAG
 ├── demo1.py                # 使用示例文件，展示如何加载模型并进行对话
 └── README.md               # 项目说明文档
 ```
@@ -41,6 +45,7 @@ conda env create -f environment.yml
 2025.07.25
 1. 更新了一个PDF智能问答应用pdf_qa。
 2. 实现了历史记录的持久化存储，和用户自定义检索块大小和文档数量。
+3. 实现了检索内容的持久化保存和展示，这样就能知道AI回答的根据是什么。
 
 
 ## 贡献

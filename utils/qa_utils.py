@@ -52,4 +52,4 @@ def qa_agnet(uploaded_file, question, chunk_size=500, k=2):  # k表示检索的�
     context = "\n".join([doc.page_content for doc in retrieved_docs])
     message = generate_rag_message(context, question, tokenizer)
     response = model.invoke(message)
-    return response.content
+    return response.content, retrieved_docs
