@@ -1,5 +1,6 @@
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from langchain_huggingface import HuggingFacePipeline, ChatHuggingFace
+from langchain_huggingface import HuggingFaceEmbeddings
 import time
 
 # 将本地部署的 Qwen 模型封装为 LangChain 可用的Chat模型
@@ -29,6 +30,22 @@ def load_chat_model(model_path):
     chat_model = ChatHuggingFace(llm=llm, tokenizer=tokenizer)
 
     return chat_model, tokenizer
+
+def load_embedding_model(embeding_model, device="cpu"):
+    model_map = {
+        "Qwen3-Embedding-0.6B": r"D:\AI_models\Qwen\Qwen3-Embedding-0___6B",
+    }
+    model_path = model_map[embeding_model]
+    model_kwargs = {
+        "device": device,  # 根据设备情况选择使用 GPU 或 CPU
+        "trust_remote_code": True  # 允许加载远程代码
+    }
+    # 初始化 HuggingFaceEmbeddings
+    embeddings_model = HuggingFaceEmbeddings(
+        model_name=model_path,
+        model_kwargs=model_kwargs
+    )
+    return embeddings_model
 
 def apply_chat_template(prompt, tokenizer, enable_thinking=False):
     return tokenizer.apply_chat_template(prompt, tokenize=False, add_generation_prompt=True, enable_thinking=enable_thinking)
