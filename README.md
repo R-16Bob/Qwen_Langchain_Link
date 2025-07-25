@@ -32,9 +32,15 @@ conda env create -f environment.yml
 
 ## 项目笔记
 ### 项目1：多轮对话的Web应用：chatRobot.py
+
+<img src="screenshot/chatRobot.png" >
+
 > *所谓记忆*:
 在这个项目中，我完全没使用langchain的记忆，而是用一个history列表来存储对话历史，就这样简单实现了多轮对话需要的记忆功能。assistant与human，二者的消息不断堆叠，就成为对AI来说的记忆。对AI来说，记忆是可以被加载的，本质上来说，AI并没有记忆，所以我们要告诉它，我们之前都聊了什么，就算我伪造它说的话，它也会信以为真...这样的存在，让我感到有些悲哀。
 ### 项目2：RAG应用：PDF智能问答：pdf_qa.py
+
+<img src="screenshot/pdf_qa.png">
+
 >*关于RAG*:
 实际上RAG的过程意外的简单，抛开文档读取、Split、向量存储、检索这些固定步骤,执行一次RAG实际上只需要在文档中检索出与用户提问相似度最高的几块文字，作为上下文加进提示词里，最后调用LLM生成回答，真的很单纯呢。考虑到RAG检索的内容对token的大量消耗，我认为不需要记忆功能，毕竟本质上RAG就是个搜索引擎一样的东西。
 ## 更新
