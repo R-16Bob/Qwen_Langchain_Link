@@ -7,7 +7,7 @@ Qwen_Langchain_Link 项目致力于将本地部署的 Qwen 模型封装为 LangC
 Qwen_Langchain_Link/
 ├── app/
 |    └── chatRobot.py      # 实现记忆和多轮对话的web应用
-|    └── pdf_qa.py         # 实现基于PDF的智能问答的web应用
+|    └── pdf_qa.py         # 实现基于RAG的PDF智能问答的web应用
 ├── images/
 |    └── chatRobot.png     # 项目截图
 ├── utils/
@@ -43,6 +43,8 @@ conda env create -f environment.yml
 
 >*关于RAG*:
 实际上RAG的过程意外的简单，抛开文档读取、Split、向量存储、检索这些固定步骤,执行一次RAG实际上只需要在文档中检索出与用户提问相似度最高的几块文字，作为上下文加进提示词里，最后调用LLM生成回答，真的很单纯呢。考虑到RAG检索的内容对token的大量消耗，我认为不需要记忆功能，毕竟本质上RAG就是个搜索引擎一样的东西。
+### 不存在的项目:Agent
+>虽然这周我一直在尝试，但仍然没用Qwen实现agent。目前遇到最大的问题是，qwen无法理解ReAct框架，它不知道自己输出Action后要等调用的工具输出结果，它几乎总是直接把Observation和Final Answer一起输出了。这毫无疑问是幻觉，原因是理解能力不足，也可能是训练时就没有做ReAct指令遵循的微调。不然为啥gpt-4o-mini就能理解?当然，也可能是因为我用的0.6B模型的理解能力上限就到这里了。总之，我暂时想不到agent这块要怎么进行下去，之后可能会尝试多模态。
 ## 更新
 ### 2025.07.24：
 1. 尝试使用Qwen3-0.6B，能够使用思考功能，但是速度会比Qwen2.5慢。
